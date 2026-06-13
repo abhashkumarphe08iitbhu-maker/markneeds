@@ -1,0 +1,557 @@
+
+<h2 class="sr-only">ICG Ichelon Consulting Group — Mobile-responsive AI framework questionnaire for Indian doctors, clinics, and hospitals.</h2>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#0D2E4F;--navy-mid:#1A4A74;--navy-light:#E8F0F8;--navy-faint:#F2F6FB;
+  --gold:#C9952A;--gold-light:#FBF4E6;--teal:#0F7B6C;--teal-light:#E4F4F1;
+  --tp:var(--color-text-primary);--ts:var(--color-text-secondary);--tt:var(--color-text-tertiary);
+  --bd:var(--color-border-tertiary);--bg:var(--color-background-primary);--bg2:var(--color-background-secondary);
+  --r-md:var(--border-radius-md);--r-lg:var(--border-radius-lg);
+}
+#icg{padding:0 0 2rem;font-family:var(--font-sans);}
+
+.icg-header{background:var(--navy);border-radius:var(--r-lg);padding:1.25rem 1.25rem 1.1rem;margin-bottom:1.25rem;}
+.icg-wordmark{font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:5px;}
+.icg-headline{font-size:18px;font-weight:500;color:#fff;line-height:1.3;margin-bottom:5px;}
+.icg-sub{font-size:12px;color:rgba(255,255,255,0.58);line-height:1.6;}
+.icg-tag{display:inline-block;font-size:10px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.65);border-radius:3px;padding:3px 8px;margin-top:9px;}
+
+.prog-wrap{margin-bottom:1.25rem;}
+.prog-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;}
+.prog-lbl{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.06em;color:var(--tt);}
+.prog-pct{font-size:11px;color:var(--tt);}
+.prog-bar{height:2px;background:var(--bg2);border-radius:2px;}
+.prog-fill{height:100%;border-radius:2px;background:var(--navy);transition:width 0.4s ease;}
+
+.step{display:none;}.step.active{display:block;}
+
+.q-label{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.08em;color:var(--navy);margin-bottom:5px;}
+@media(prefers-color-scheme:dark){.q-label{color:#5A9ED0;}.icg-header{background:#0a2540;}}
+.q-text{font-size:16px;font-weight:500;color:var(--tp);margin-bottom:3px;line-height:1.4;}
+.q-hint{font-size:12px;color:var(--ts);margin-bottom:3px;line-height:1.5;}
+.q-multi{font-size:11px;color:var(--tt);margin-bottom:0.9rem;display:flex;align-items:center;gap:4px;}
+
+.opts{display:grid;gap:7px;margin-bottom:1.1rem;}
+.opts-2{grid-template-columns:1fr 1fr;}
+.opts-1{grid-template-columns:1fr;}
+
+@media(max-width:480px){
+  .opts-2{grid-template-columns:1fr;}
+  .icg-headline{font-size:16px;}
+  .q-text{font-size:15px;}
+  .r-stats{grid-template-columns:1fr 1fr!important;}
+  .roadmap{grid-template-columns:1fr!important;}
+  .ask-row{flex-direction:column!important;}
+  .icg-cta{flex-direction:column!important;}
+  .icg-cta-btns{flex-direction:row!important;flex-wrap:wrap;}
+  .dcg-badge{flex-wrap:wrap;}
+}
+
+.opt{background:var(--bg);border:0.5px solid var(--bd);border-radius:var(--r-lg);padding:10px 12px;cursor:pointer;transition:border-color 0.15s,background 0.15s;display:flex;align-items:flex-start;gap:9px;-webkit-tap-highlight-color:transparent;}
+.opt:active{background:var(--navy-faint);}
+.opt.sel{border:1.5px solid var(--navy);background:var(--navy-light);}
+@media(prefers-color-scheme:dark){.opt.sel{background:rgba(13,46,79,0.38);border-color:#4A8BBF;}}
+
+.opt-check{width:16px;height:16px;min-width:16px;border-radius:4px;border:1.5px solid var(--bd);display:flex;align-items:center;justify-content:center;transition:all 0.15s;margin-top:1px;}
+.opt.sel .opt-check{background:var(--navy);border-color:var(--navy);}
+@media(prefers-color-scheme:dark){.opt.sel .opt-check{background:#4A8BBF;border-color:#4A8BBF;}}
+.chk-svg{width:8px;height:8px;display:none;}
+.opt.sel .chk-svg{display:block;}
+
+.opt-icon{width:28px;height:28px;min-width:28px;border-radius:7px;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:14px;}
+.opt.sel .opt-icon{background:rgba(13,46,79,0.08);}
+@media(prefers-color-scheme:dark){.opt.sel .opt-icon{background:rgba(13,46,79,0.5);}}
+
+.opt-body{flex:1;min-width:0;}
+.opt-title{font-size:12px;font-weight:500;color:var(--tp);margin-bottom:2px;line-height:1.35;}
+.opt-desc{font-size:11px;color:var(--ts);line-height:1.45;}
+
+.nav{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.btn-back{background:transparent;border:0.5px solid var(--bd);border-radius:var(--r-md);padding:9px 14px;font-size:13px;color:var(--ts);cursor:pointer;-webkit-tap-highlight-color:transparent;}
+.btn-back:active{background:var(--bg2);}
+.btn-next{background:var(--navy);border:none;border-radius:var(--r-md);padding:10px 20px;font-size:13px;font-weight:500;color:#fff;cursor:pointer;transition:opacity 0.15s;-webkit-tap-highlight-color:transparent;}
+.btn-next:disabled{opacity:0.28;cursor:not-allowed;}
+.btn-next:not(:disabled):active{opacity:0.8;}
+.sel-ct{font-size:11px;color:var(--tt);}
+
+.result{display:none;}.result.active{display:block;}
+
+.r-hdr{background:var(--navy);border-radius:var(--r-lg);padding:1.1rem 1.25rem;margin-bottom:1.1rem;}
+.r-tag{font-size:10px;font-weight:500;letter-spacing:0.09em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:5px;}
+.r-name{font-size:17px;font-weight:500;color:#fff;margin-bottom:7px;line-height:1.3;}
+.r-summ{font-size:12px;color:rgba(255,255,255,0.62);line-height:1.6;}
+.r-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:10px;}
+.r-stat{background:rgba(255,255,255,0.08);border-radius:6px;padding:7px 9px;}
+.r-stat-num{font-size:14px;font-weight:500;color:#fff;}
+.r-stat-lbl{font-size:10px;color:rgba(255,255,255,0.48);margin-top:2px;line-height:1.3;}
+
+.sec-hd{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.07em;color:var(--tt);margin:1.25rem 0 8px;}
+
+.roadmap{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:0.5rem;}
+.rm{background:var(--bg);border:0.5px solid var(--bd);border-radius:var(--r-md);padding:9px 11px;}
+.rm-phase{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:3px;}
+.rm1 .rm-phase{color:var(--teal);}.rm2 .rm-phase{color:var(--gold);}.rm3 .rm-phase{color:var(--navy-mid);}
+.rm-title{font-size:11px;font-weight:500;color:var(--tp);margin-bottom:4px;}
+.rm-items{font-size:10px;color:var(--ts);line-height:1.6;}
+
+.cards{display:flex;flex-direction:column;gap:7px;}
+.rcard{background:var(--bg);border:0.5px solid var(--bd);border-radius:var(--r-lg);padding:12px 14px;}
+.rcard.p1{border-left:2.5px solid var(--teal);border-radius:0 var(--r-lg) var(--r-lg) 0;}
+.rcard.p2{border-left:2.5px solid var(--gold);border-radius:0 var(--r-lg) var(--r-lg) 0;}
+.rcard.p3{border-left:2.5px solid var(--navy);border-radius:0 var(--r-lg) var(--r-lg) 0;}
+.rcard-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:4px;}
+.rcard-title{font-size:12px;font-weight:500;color:var(--tp);flex:1;line-height:1.4;}
+.rbadge{font-size:10px;font-weight:500;padding:2px 7px;border-radius:20px;white-space:nowrap;flex-shrink:0;}
+.rb-now{background:var(--teal-light);color:var(--teal);}
+.rb-month{background:var(--gold-light);color:var(--gold);}
+.rb-scale{background:var(--navy-light);color:var(--navy-mid);}
+@media(prefers-color-scheme:dark){
+  .rb-now{background:rgba(15,123,108,0.18);color:#4ECBBA;}
+  .rb-month{background:rgba(201,149,42,0.18);color:#E5B660;}
+  .rb-scale{background:rgba(13,46,79,0.38);color:#7AB3E0;}
+}
+.rcard-desc{font-size:11px;color:var(--ts);line-height:1.5;}
+.rcard-metric{font-size:11px;font-weight:500;margin-top:4px;}
+.mc-t{color:var(--teal);}.mc-g{color:var(--gold);}.mc-n{color:var(--navy-mid);}
+.rcard-tools{display:flex;flex-wrap:wrap;gap:3px;margin-top:6px;}
+.rtool{font-size:10px;background:var(--bg2);border:0.5px solid var(--bd);border-radius:3px;padding:2px 6px;color:var(--tt);}
+
+.dcg-badge{display:flex;align-items:center;gap:6px;background:var(--bg2);border:0.5px solid var(--bd);border-radius:var(--r-md);padding:7px 11px;margin-top:1.1rem;}
+.dcg-pill{display:flex;gap:3px;flex-wrap:wrap;}
+.dcg-d,.dcg-c,.dcg-g{font-size:10px;font-weight:500;padding:2px 7px;border-radius:3px;}
+.dcg-d{background:var(--navy-light);color:var(--navy);}
+.dcg-c{background:var(--teal-light);color:var(--teal);}
+.dcg-g{background:var(--gold-light);color:var(--gold);}
+@media(prefers-color-scheme:dark){
+  .dcg-d{background:rgba(13,46,79,0.38);color:#7AB3E0;}
+  .dcg-c{background:rgba(15,123,108,0.18);color:#4ECBBA;}
+  .dcg-g{background:rgba(201,149,42,0.18);color:#E5B660;}
+}
+.dcg-lbl{font-size:10px;color:var(--tt);}
+
+.ask-row{display:flex;gap:6px;margin-top:9px;}
+.ask-btn{flex:1;background:var(--bg2);border:0.5px solid var(--bd);border-radius:var(--r-md);padding:9px 10px;font-size:11px;color:var(--ts);cursor:pointer;text-align:left;transition:background 0.15s;line-height:1.4;-webkit-tap-highlight-color:transparent;}
+.ask-btn:active{background:var(--bg);}
+
+.icg-cta{background:var(--navy);border-radius:var(--r-lg);padding:1.1rem 1.25rem;margin-top:1.25rem;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.icg-cta-text{font-size:12px;color:rgba(255,255,255,0.7);flex:1;line-height:1.5;min-width:160px;}
+.icg-cta-text strong{display:block;font-size:13px;color:#fff;margin-bottom:3px;font-weight:500;}
+.icg-cta-btns{display:flex;flex-direction:column;gap:5px;flex-shrink:0;}
+.cta-p{background:#fff;border:none;border-radius:var(--r-md);padding:9px 14px;font-size:12px;font-weight:500;color:var(--navy);cursor:pointer;white-space:nowrap;-webkit-tap-highlight-color:transparent;}
+.cta-p:active{opacity:0.88;}
+.cta-s{background:transparent;border:0.5px solid rgba(255,255,255,0.28);border-radius:var(--r-md);padding:9px 14px;font-size:12px;color:rgba(255,255,255,0.78);cursor:pointer;white-space:nowrap;-webkit-tap-highlight-color:transparent;}
+.cta-s:active{background:rgba(255,255,255,0.08);}
+
+.restart{background:transparent;border:0.5px solid var(--bd);border-radius:var(--r-md);padding:7px 14px;font-size:12px;color:var(--ts);cursor:pointer;margin-top:8px;-webkit-tap-highlight-color:transparent;}
+.restart:active{background:var(--bg2);}
+</style>
+
+<div id="icg">
+  <div class="icg-header">
+    <div class="icg-wordmark">Ichelon Consulting Group · ICG</div>
+    <div class="icg-headline">Diagnose your AI growth architecture</div>
+    <div class="icg-sub">Six questions. A personalised roadmap across digital marketing, practice management, and clinical AI — built on ICG's DCG framework.</div>
+    <div class="icg-tag">Diagnosis before prescription · Always</div>
+  </div>
+
+  <div class="prog-wrap">
+    <div class="prog-meta">
+      <span class="prog-lbl" id="prog-lbl">Step 1 of 6</span>
+      <span class="prog-pct" id="prog-pct">0% complete</span>
+    </div>
+    <div class="prog-bar"><div class="prog-fill" id="prog" style="width:0%"></div></div>
+  </div>
+
+  <!-- Q1 -->
+  <div id="q1" class="step active">
+    <div class="q-label">Practice type</div>
+    <div class="q-text">What best describes your practice?</div>
+    <div class="q-hint">Select all that apply — shapes your entire growth architecture.</div>
+    <div class="q-multi"><i class="ti ti-checks" aria-hidden="true"></i> Multi-select</div>
+    <div class="opts opts-2">
+      <div class="opt" data-q="1" data-v="solo_gp" onclick="tog(this)">
+        <div class="opt-check"><svg class="chk-svg" viewBox="0 0 8 8" fill="none"><polyline points="1,4 3.5,6.5 7,2" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="opt-icon"><i class="ti ti-stethoscope" aria-hidden="true"></i></div>
+        <div class="opt-body"><div class="opt-title">Solo GP / family physician</div><div class="opt-desc">Single doctor, general or family medicine</div></div>
+      </div>
+      <div class="opt" data-q="1" data-v="specialist" onclick="tog(this)">
+        <div class="opt-check"><svg class="chk-svg" viewBox="0 0 8 8" fill="none"><polyline points="1,4 3.5,6.5 7,2" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="opt-icon"><i class="ti ti-microscope" aria-hidden="true"></i></div>
+        <div class="opt-body"><div class="opt-title">Urban specialist</div><div class="opt-desc">Dermatology, ortho, cardio, gyn, IVF, aesthetics</div></div>
+      </div>
+      <div class="opt" data-q="1" data-v="small_clinic" onclick="tog(this)">
+        <div class="opt-check"><svg class="chk-svg" viewBox="0 0 8 8" fill="none"><polyline points="1,4 3.5,6.5 7,2" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="opt-icon"><i class="ti ti-building-hospital" aria-hidden="true"></i></div>
+        <div class="opt-body"><div class="opt-title">Clinic (2–5 doctors)</div><div class="opt-desc">Multi-doctor, single or two locations</div></div>
+      </div>
+      <div class="opt" data-q="1" data-v="chain" onclick="tog(this)">
+        <div class="opt-check"><svg class="chk-svg" viewBox="0 0 8 8" fill="none"><polyline points="1,4 3.5,6.5 7,2" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="opt-icon"><i class="ti ti-buildings" aria-hidden="true"></i></div>
+        <div class="opt-body"><div class="opt-title">Multi-location / hospital</div><div class="opt-desc">3+ locations, 20+ beds, or diagnostic centre</div></div>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="btn-next" id="n1" disabled onclick="nxt(1)">Continue <i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+      <span class="sel-ct" id="sc1"></span>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div id="q2" class="step">
+    <div class="q-label">Pain points</div>
+    <div class="q-text">Where is your growth leaking most?</div>
+    <div class="q-hint">ICG's diagnosis starts here — root cause before any intervention.</div>
+    <div class="q-multi"><i class="ti ti-checks" aria-hidden="true"></i> Multi-select</div>
+    <div class="opts opts-2">
+      <div class="opt" data-q="2" data-v="no_shows" onclick="tog(this)">
+        <div class="opt-check"><svg class="chk-svg" viewBox="0 0 8 8" fill="none"><polyline points="1,4 3.5,6.5 7,2" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="opt-icon"><i class="ti ti-calendar-x" aria-hidden="true"></i></div>
+        <div class="opt-body"><div class="opt-title">High no-shows</div><div class="opt-desc">25%+ non-attendance, losing ₹2.5–3L/month</div></div>
+      </div>
+      <div class="opt" data-q="2" data-v="acquisition" onclick="tog(this)">
+        <div class="opt-check"><svg class="chk-svg" viewBox="0 0 8 8" fill="none"><polyline points="1,4 3.5,6.5 7,2" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="opt-icon"><i class="ti ti-users" aria-hidden="true"></i></div>
+        <div class="opt-body"><div class="opt-title">Not enough new patients</div><div class="opt-desc">Low footfall, weak CPQL, poor online presence</div></div>
+      </div>
+      <div class="opt" data-q="2" data-v="admin_burden" onclick="tog(this)">
+        <div class="opt-check"><svg class="chk-svg" viewBox="0 0 8 8" fill="none"><polyline points="1,4 3.5,6.5 7,2" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="opt-icon"><i class="ti ti-notes" aria-hidden="true"></i></div>
+        <div class="opt-body"><div class="opt-title">Admin overload</div><div class="opt-desc">3–5 hrs daily on coordination instead of care</div></div>
+      </div>
+      <div class="opt" data-q="2" data-v="retention" onclick="tog(this)">
+        <div class="opt-check"><svg class="chk-svg" viewBox="0 0 8 8" fill="none"><polyline points="1,4 3.5,6.5 7,2" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="opt-icon"><i class="ti ti-repeat" aria-hidden="true"></i></div>
+        <div class="opt-body"><div class="opt-title">Patients don't return</div><div class="opt-desc">40%+ lapse after first visit</div></div>
+      </div>
+      <div class="opt" data-q="2" data-v="ads_roi" onclick="tog(this)">
+        <div class="opt-check"><svg class="chk-svg" viewBox="0 0 8 8" fill="none"><polyline points="1,4 3.5,6.5 7,2" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="opt-icon"><i class="ti ti-ad-off" aria-hidden="true"></i></div>
+        <div class="opt-body"><div class="opt-title">Rising ad costs, poor ROI</div><div class="opt-desc">₹50K+ on ads with no CPQL clarity</div></div>
+      </div>
+      <div class="opt" data-q="2" data-v="reputation" onclick="tog(this)">
+        <div class="opt-check"><svg class="chk-svg" viewBox="0 0 8 8" fill="none"><polyline points="1,4 3.5,6.5 7,2" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="opt-icon"><i class="ti ti-star" aria-hidden="true"></i></div>
+        <div class="opt-body"><div class="opt-title">Weak online reputation</div><div class="opt-desc">Low Google rating, invisible in AI search</div></div>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="btn-back" onclick="bck(2)"><i class="ti ti-arrow-left" aria-hidden="true"></i> Back</button>
+      <button class="btn-next" id="n2" disabled onclick="nxt(2)">Continue <i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+      <span class="sel-ct" id="sc2"></span>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div id="q3" class="step">
+    <div class="q-label">Patient discovery</div>
+    <div class="q-text">How are patients finding you today?</div>
+    <div class="q-hint">67% of Indian patients consult ChatGPT before booking. Select every channel that applies.</div>
+    <div class="q-multi"><i class="ti ti-checks" aria-hidden="true"></i> Multi-select</div>
+    <div class="opts opts-2">
+      <div class="opt" data-q="3" data-v="word_mouth" onclick="tog(this)">
+        <div class="opt-check"><svg class="chk-svg" viewBox="0 0 8 8" fill="none"><polyline points="1,4 3.5,6.5 7,2" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="opt-icon"><i class="ti ti-message-circle" aria-hidden="true"></i></div>
+        <div class="opt-body"><div class="opt-title">Word of mouth</div><div class="opt-desc">Referrals from patients & doctors</div></div>
+      </div>
+      <div class="opt" data-q="3" data-v="google_paid" onclick="tog(this)">
+        <div class="opt-check"><svg class="chk-svg" viewBox="0 0 8 8" fill="none"><polyline points="1,4 3.5,6.5 7,2" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="opt-icon"><i class="ti ti-currency-rupee" aria-hidden="true"></i></div>
+        <div class="opt-body"><div class="opt-title">Google / Meta paid ads</div><div class="opt-desc">Active campaigns, CPQL not benchmarked</div></div>
+      </div>
+      <div class="opt" data-q="3" data-v="practo_platform" onclick="tog(this)">
+        <div class="opt-check"><svg class="chk-svg" viewBox="0 0 8 8" fill="none"><polyline points="1,4 3.5,6.5 7,2" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="opt-icon"><i class="ti ti-device-mobile" aria-hidden="true"></i></div>
+        <div class="opt-body"><div class="opt-title">Practo / aggregators</div><div class="opt-desc">Listed on Practo, 1mg — no owned channel</div></div>
+      </div>
+      <div class="opt" data-q="3" data-v="organic_seo" onclick="tog(this)">
+        <div class="opt-check"><svg class="chk-svg" viewBox="0 0 8 8" fill="none"><polyline points="1,4 3.5,6.5 7,2" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="opt-icon"><i class="ti ti-search" aria-hidden="true"></i></div>
+        <div class="opt-body"><div class="opt-title">Organic Google / SEO</div><div class="opt-desc">Website found via search, AEO unclear</div></div>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="btn-back" onclick="bck(3)"><i class="ti ti-arrow-left" aria-hidden="true"></i> Back</button>
+      <button class="btn-next" id="n3" disabled onclick="nxt(3)">Continue <i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+      <span class="sel-ct" id="sc3"></span>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div id="q4" class="step">
+    <div class="q-label">Current tech stack</div>
+    <div class="q-text">What digital tools are you running today?</div>
+    <div class="q-hint">Select everything in place — determines where to build vs what's already there.</div>
+    <div class="q-multi"><i class="ti ti-checks" aria-hidden="true"></i> Multi-select</div>
+    <div class="opts opts-2">
+      <div class="opt" data-q="4" data-v="none" onclick="tog(this)">
+        <div class="opt-check"><svg class="chk-svg" viewBox="0 0 8 8" fill="none"><polyline points="1,4 3.5,6.5 7,2" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="opt-icon"><i class="ti ti-device-desktop-off" aria-hidden="true"></i></div>
+        <div class="opt-body"><div class="opt-title">Pen & paper</div><div class="opt-desc">No EMR — starting from zero</div></div>
+      </div>
+      <div class="opt" data-q="4" data-v="basic_emr" onclick="tog(this)">
+        <div class="opt-check"><svg class="chk-svg" viewBox="0 0 8 8" fill="none"><polyline points="1,4 3.5,6.5 7,2" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="opt-icon"><i class="ti ti-clipboard-list" aria-hidden="true"></i></div>
+        <div class="opt-body"><div class="opt-title">Basic EMR / billing</div><div class="opt-desc">Digital records, no automation</div></div>
+      </div>
+      <div class="opt" data-q="4" data-v="whatsapp_manual" onclick="tog(this)">
+        <div class="opt-check"><svg class="chk-svg" viewBox="0 0 8 8" fill="none"><polyline points="1,4 3.5,6.5 7,2" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="opt-icon"><i class="ti ti-brand-whatsapp" aria-hidden="true"></i></div>
+        <div class="opt-body"><div class="opt-title">WhatsApp (manual)</div><div class="opt-desc">Manual messaging, no bot layer</div></div>
+      </div>
+      <div class="opt" data-q="4" data-v="crm_integrated" onclick="tog(this)">
+        <div class="opt-check"><svg class="chk-svg" viewBox="0 0 8 8" fill="none"><polyline points="1,4 3.5,6.5 7,2" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="opt-icon"><i class="ti ti-chart-dots" aria-hidden="true"></i></div>
+        <div class="opt-body"><div class="opt-title">CRM + some automation</div><div class="opt-desc">Tools in place, AI layer not yet deployed</div></div>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="btn-back" onclick="bck(4)"><i class="ti ti-arrow-left" aria-hidden="true"></i> Back</button>
+      <button class="btn-next" id="n4" disabled onclick="nxt(4)">Continue <i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+      <span class="sel-ct" id="sc4"></span>
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div id="q5" class="step">
+    <div class="q-label">Investment range</div>
+    <div class="q-text">Monthly budget for AI & digital growth?</div>
+    <div class="q-hint">Shapes your architecture tier — select all ranges that apply.</div>
+    <div class="q-multi"><i class="ti ti-checks" aria-hidden="true"></i> Multi-select</div>
+    <div class="opts opts-1">
+      <div class="opt" data-q="5" data-v="low" onclick="tog(this)">
+        <div class="opt-check"><svg class="chk-svg" viewBox="0 0 8 8" fill="none"><polyline points="1,4 3.5,6.5 7,2" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="opt-icon"><i class="ti ti-wallet" aria-hidden="true"></i></div>
+        <div class="opt-body"><div class="opt-title">Under ₹5,000/month</div><div class="opt-desc">Entry-level — reminders, reviews, basic bots</div></div>
+      </div>
+      <div class="opt" data-q="5" data-v="mid" onclick="tog(this)">
+        <div class="opt-check"><svg class="chk-svg" viewBox="0 0 8 8" fill="none"><polyline points="1,4 3.5,6.5 7,2" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="opt-icon"><i class="ti ti-credit-card" aria-hidden="true"></i></div>
+        <div class="opt-body"><div class="opt-title">₹5,000 – ₹25,000/month</div><div class="opt-desc">Growth tier — HealthPro 360, AI bots, analytics</div></div>
+      </div>
+      <div class="opt" data-q="5" data-v="high" onclick="tog(this)">
+        <div class="opt-check"><svg class="chk-svg" viewBox="0 0 8 8" fill="none"><polyline points="1,4 3.5,6.5 7,2" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="opt-icon"><i class="ti ti-coin" aria-hidden="true"></i></div>
+        <div class="opt-body"><div class="opt-title">₹25,000 – ₹1L/month</div><div class="opt-desc">Full-stack — DCG Agency OS, 4-bot lifecycle</div></div>
+      </div>
+      <div class="opt" data-q="5" data-v="enterprise" onclick="tog(this)">
+        <div class="opt-check"><svg class="chk-svg" viewBox="0 0 8 8" fill="none"><polyline points="1,4 3.5,6.5 7,2" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="opt-icon"><i class="ti ti-building-bank" aria-hidden="true"></i></div>
+        <div class="opt-body"><div class="opt-title">₹1L+/month</div><div class="opt-desc">Enterprise — multi-centre, full ICG engagement</div></div>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="btn-back" onclick="bck(5)"><i class="ti ti-arrow-left" aria-hidden="true"></i> Back</button>
+      <button class="btn-next" id="n5" disabled onclick="nxt(5)">Continue <i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+      <span class="sel-ct" id="sc5"></span>
+    </div>
+  </div>
+
+  <!-- Q6 -->
+  <div id="q6" class="step">
+    <div class="q-label">Primary goals</div>
+    <div class="q-text">What outcomes matter most?</div>
+    <div class="q-hint">ICG aligns the growth architecture to your combined outcome set.</div>
+    <div class="q-multi"><i class="ti ti-checks" aria-hidden="true"></i> Multi-select</div>
+    <div class="opts opts-2">
+      <div class="opt" data-q="6" data-v="save_time" onclick="tog(this)">
+        <div class="opt-check"><svg class="chk-svg" viewBox="0 0 8 8" fill="none"><polyline points="1,4 3.5,6.5 7,2" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="opt-icon"><i class="ti ti-clock" aria-hidden="true"></i></div>
+        <div class="opt-body"><div class="opt-title">Save time & reduce admin</div><div class="opt-desc">Recover 2–4 hours/day from documentation</div></div>
+      </div>
+      <div class="opt" data-q="6" data-v="grow_patients" onclick="tog(this)">
+        <div class="opt-check"><svg class="chk-svg" viewBox="0 0 8 8" fill="none"><polyline points="1,4 3.5,6.5 7,2" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="opt-icon"><i class="ti ti-trending-up" aria-hidden="true"></i></div>
+        <div class="opt-body"><div class="opt-title">Grow volume & CPQL</div><div class="opt-desc">More appointments, lower cost-per-lead</div></div>
+      </div>
+      <div class="opt" data-q="6" data-v="build_brand" onclick="tog(this)">
+        <div class="opt-check"><svg class="chk-svg" viewBox="0 0 8 8" fill="none"><polyline points="1,4 3.5,6.5 7,2" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="opt-icon"><i class="ti ti-award" aria-hidden="true"></i></div>
+        <div class="opt-body"><div class="opt-title">Build brand & AEO</div><div class="opt-desc">Visible in Google, ChatGPT & Perplexity</div></div>
+      </div>
+      <div class="opt" data-q="6" data-v="improve_care" onclick="tog(this)">
+        <div class="opt-check"><svg class="chk-svg" viewBox="0 0 8 8" fill="none"><polyline points="1,4 3.5,6.5 7,2" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="opt-icon"><i class="ti ti-heart-handshake" aria-hidden="true"></i></div>
+        <div class="opt-body"><div class="opt-title">Improve clinical outcomes</div><div class="opt-desc">Better diagnostics, safer prescribing</div></div>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="btn-back" onclick="bck(6)"><i class="ti ti-arrow-left" aria-hidden="true"></i> Back</button>
+      <button class="btn-next" id="n6" disabled onclick="showResult()">Generate roadmap <i class="ti ti-sparkles" aria-hidden="true"></i></button>
+      <span class="sel-ct" id="sc6"></span>
+    </div>
+  </div>
+
+  <!-- Result -->
+  <div id="result" class="result">
+    <div class="r-hdr" id="r-hdr"></div>
+    <div class="dcg-badge">
+      <div class="dcg-pill"><span class="dcg-d">D · Diagnose</span><span class="dcg-c">C · Cost-optimise</span><span class="dcg-g">G · Grow</span></div>
+      <span class="dcg-lbl">ICG DCG Framework applied</span>
+    </div>
+    <div class="sec-hd">90-day adoption roadmap</div>
+    <div class="roadmap" id="r-roadmap"></div>
+    <div class="sec-hd" style="margin-top:1.25rem;">Diagnose first — priority interventions</div>
+    <div class="cards" id="r-priority"></div>
+    <div class="sec-hd" style="margin-top:1.25rem;">Cost-optimise — growth layer (month 1–2)</div>
+    <div class="cards" id="r-growth"></div>
+    <div class="sec-hd" style="margin-top:1.25rem;">Grow — compounding moat (month 3+)</div>
+    <div class="cards" id="r-scale"></div>
+    <div class="ask-row">
+      <button class="ask-btn" id="ask1"><i class="ti ti-message-circle" aria-hidden="true"></i> Go deeper on my top priority ↗</button>
+      <button class="ask-btn" id="ask2"><i class="ti ti-chart-bar" aria-hidden="true"></i> CPQL benchmarks for my profile ↗</button>
+    </div>
+    <div class="icg-cta">
+      <div class="icg-cta-text"><strong>Ready for a proper diagnosis?</strong>ICG's Brand & Growth Diagnostic is free, 30 minutes, no commitment.</div>
+      <div class="icg-cta-btns">
+        <button class="cta-p" onclick="openLink('https://ichelonconsulting.com/book')">Book a diagnostic →</button>
+        <button class="cta-s" onclick="openLink('https://ichelonconsulting.com/services/ai-chatbots-healthcare')">Explore AI solutions</button>
+      </div>
+    </div>
+    <br><button class="restart" onclick="rst()"><i class="ti ti-refresh" aria-hidden="true"></i> Start over</button>
+  </div>
+</div>
+
+<script>
+const A={1:[],2:[],3:[],4:[],5:[],6:[]};
+
+function tog(el){
+  const q=parseInt(el.dataset.q),v=el.dataset.v;
+  el.classList.toggle('sel');
+  A[q]=el.classList.contains('sel')?[...A[q],v]:A[q].filter(x=>x!==v);
+  const nb=document.getElementById('n'+q);if(nb)nb.disabled=!A[q].length;
+  const sc=document.getElementById('sc'+q);if(sc)sc.textContent=A[q].length?A[q].length+' selected':'';
+}
+function setProg(s){
+  const p=Math.round((s-1)/6*100);
+  document.getElementById('prog').style.width=p+'%';
+  document.getElementById('prog-lbl').textContent='Step '+s+' of 6';
+  document.getElementById('prog-pct').textContent=p+'% complete';
+}
+function nxt(q){document.getElementById('q'+q).classList.remove('active');document.getElementById('q'+(q+1)).classList.add('active');setProg(q+1);window.scrollTo(0,0);}
+function bck(q){document.getElementById('q'+q).classList.remove('active');document.getElementById('q'+(q-1)).classList.add('active');setProg(q-1);window.scrollTo(0,0);}
+function rst(){
+  for(let i=1;i<=6;i++)A[i]=[];
+  document.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));
+  for(let i=1;i<=6;i++){const b=document.getElementById('n'+i);if(b)b.disabled=true;const s=document.getElementById('sc'+i);if(s)s.textContent='';}
+  document.getElementById('result').classList.remove('active');
+  document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
+  document.getElementById('q1').classList.add('active');
+  setProg(1);window.scrollTo(0,0);
+}
+const has=(q,v)=>A[q].includes(v);
+const any=(q,...v)=>v.some(x=>A[q].includes(x));
+
+const C={
+  whatsapp_reminders:{t:'AI WhatsApp reminders & no-show prevention',d:'Automated confirmations and cancellation-fill in Hindi/regional languages. Integrates with HealthPro 360. No-show rate 32% → 12%.',m:'₹2.5–3L/month recovered · Entry ₹1,500/month',mc:'mc-t',cl:'p1',b:'rb-now',bl:'Now',tools:['HealthPro 360','AiSensy','WATI','Practo Ray']},
+  gbp_reviews:{t:'Google Business Profile + AI review automation',d:'Post-visit review requests, AI response management, GBP content updates. 1-star rating increase = 5–9% revenue growth.',m:'From ₹0 setup · ICG avg 38–58% CPQL drop in 90 days',mc:'mc-t',cl:'p1',b:'rb-now',bl:'Now',tools:['Google Business','AiSensy','Practo Reviews']},
+  chatbot_booking:{t:'24/7 AI booking bot — ICG Lead Conversion AI',d:'Handles enquiries, symptom intake, fee questions, and booking in Hindi/Tamil/Telugu/Marathi at 2am. KPI: qualified-lead rate ≥40% · first response <60s.',m:'80% query automation · 60% no-show reduction',mc:'mc-t',cl:'p1',b:'rb-now',bl:'Now',tools:['ICG 4-Bot System','Gallabox','Interakt','Voiceoc']},
+  ai_prescription:{t:'AI prescription & voice documentation',d:'Voice-to-prescription: auto-generates prescriptions, discharge summaries, and referral letters. 72% reduction in after-hours documentation time.',m:'2+ hours/day recovered for 60-patient OPDs',mc:'mc-t',cl:'p1',b:'rb-now',bl:'Now',tools:['HealthPro 360 EMR','Doxper','HealthPlix','Clinivantage']},
+  gst_billing:{t:'AI billing automation & revenue leakage prevention',d:'Auto-generates GST invoices, flags unbilled procedures, tracks collections vs outstanding. HealthPro 360 Revenue Intelligence — live.',m:'₹50–80K/month billing leakage prevented',mc:'mc-t',cl:'p1',b:'rb-now',bl:'Now',tools:['HealthPro 360','EasyClinic','Practo Ray']},
+  ai_cdss:{t:'AI clinical decision support (CDSS) for NCDs',d:'Real-time diabetes, hypertension, drug dosage, and contraindication alerts in EMR. Government-mandated rollout to 70,000 hospitals.',m:'Adoption ease 88% · Clinical impact 90%',mc:'mc-t',cl:'p1',b:'rb-now',bl:'Now',tools:['AIIMS CDSS','HealthPlix EMR','Innovaccer','ABDM']},
+  ai_diagnostics:{t:'AI-assisted diagnostics — ECG, X-ray, retina',d:'AI reads ECGs and chest X-rays in <60s at >90% accuracy on TB and cardiac events. India: 1 radiologist per 100,000 people.',m:'Adoption ease 82% · Clinical impact 88%',mc:'mc-t',cl:'p1',b:'rb-now',bl:'Now',tools:['Qure.ai','Tricog','Niramai','Ocellux']},
+  aeo_visibility:{t:'AEO / GEO — AI search visibility (ChatGPT & Perplexity)',d:'67% of patients consult ChatGPT before booking. ICG\'s AEO/LLM optimisation puts your practice in AI-generated answers — bypassing the ad auction.',m:'3× market share for early adopters · Compounding daily',mc:'mc-g',cl:'p2',b:'rb-month',bl:'Month 1–2',tools:['ICG AEO Service','Schema markup','Google AI Overview']},
+  reels_content:{t:'AI video content & authority-building',d:'AI collapses production: one 30-min session → 5 edited Reels. ICG content intelligence layer for dermatologists, IVF specialists, and urban practitioners.',m:'3× faster growth for multilingual content',mc:'mc-g',cl:'p2',b:'rb-month',bl:'Month 1–2',tools:['ICG Content Intelligence','Pictory','Opus Clip','Canva AI']},
+  followup_engine:{t:'AI follow-up & retention — ICG Patient Education Bot',d:'ICG\'s Education Bot educates leads, explains procedures, and re-engages lapsed patients. KPI: lead-to-visit rate ≥70% · no-show reduction −30%.',m:'40% increase in follow-up appointment fill rate',mc:'mc-g',cl:'p2',b:'rb-month',bl:'Month 1–2',tools:['ICG 4-Bot System','HealthPro 360 CRM','EasyClinic']},
+  symptom_seo:{t:'AI content marketing & symptom-based SEO',d:'AI generates condition explainers and treatment FAQs ranking for local queries. ICG SEO + AEO integrated. Compounding asset — not a campaign.',m:'40% more AI search visibility · 6-month compound',mc:'mc-g',cl:'p2',b:'rb-month',bl:'Month 1–2',tools:['ICG SEO & AEO','Schema markup','Google Search Console']},
+  lapsed_reactivation:{t:'AI lapsed-patient re-engagement — HealthPro 360',d:'HealthPro 360 flags patients unseen 6–18 months by condition, CLTV tier, and churn risk. AI-triggered personalised WhatsApp sequences auto-sent.',m:'₹50 re-engagement vs ₹2,500 cold acquisition',mc:'mc-g',cl:'p2',b:'rb-month',bl:'Month 2',tools:['HealthPro 360 CRM','ICG Patient Services Bot']},
+  governance_bot:{t:'AI clinical governance — ICG Governance Bot',d:'Post-visit PRO surveys, red-flag symptom detection, and auto-escalation. KPI: survey completion ≥60% · weekly governance report. No concern falls through.',m:'Clinical safety net · Auto-escalation logic',mc:'mc-g',cl:'p2',b:'rb-month',bl:'Month 1–2',tools:['ICG 4-Bot System','HealthPro 360 PRO Surveys']},
+  queue_management:{t:'AI queue management — ICG Patient Services Bot',d:'Services Bot answers appointments, invoices, rescheduling, pharmacy queries 24/7. KPI: reception deflected ≥70% · response <3s.',m:'30% reduction in perceived wait time',mc:'mc-g',cl:'p2',b:'rb-month',bl:'Month 2',tools:['ICG 4-Bot System','HealthPro 360','Cliniify']},
+  drug_checker:{t:'AI drug interaction & polypharmacy checker',d:'Real-time alert for harmful drug combinations — critical for multi-morbid patients on 5+ medications. Embedded in AIIMS CDSS.',m:'Adoption ease 72% · Clinical impact 82%',mc:'mc-g',cl:'p2',b:'rb-month',bl:'Month 1',tools:['AIIMS CDSS','1mg Pro','Meditech']},
+  analytics_dashboard:{t:'AI practice analytics — HealthPro 360 Intelligence',d:'Gemini Morning Briefing: empty slots, outstanding revenue, lapsing VIPs, churn risk — daily. 15 pre-built reports across collections, staff KRA, and loyalty.',m:'₹1.35L–₹2.95L monthly uplift for ₹10–15L/mo clinic',mc:'mc-n',cl:'p3',b:'rb-scale',bl:'Scale',tools:['HealthPro 360 Analytics','Halemind','Innovaccer']},
+  cpql_attribution:{t:'AI marketing attribution — ICG DCG Agency OS',d:'30+ real-time alert systems track Google Ads, Meta, GA4, and GSC. Flags waste within hours. ICG avg: 38–58% CPQL reduction in 90 days.',m:'Stops the ₹50–150K/month ads black box',mc:'mc-n',cl:'p3',b:'rb-scale',bl:'Scale',tools:['ICG DCG Agency OS','30+ Alert Systems','GrowthPixel']},
+  segmentation:{t:'AI patient segmentation & CLTV intelligence',d:'HealthPro 360 clusters patients by CLTV tier (A/B/C/D), condition, last-visit, and churn risk. VIP patients with ₹4L+ CLTV flagged for concierge follow-up.',m:'VIP churn prevention · CLTV tracking live',mc:'mc-n',cl:'p3',b:'rb-scale',bl:'Scale',tools:['HealthPro 360 CRM','ICG AI Lead Management']},
+  referral_intelligence:{t:'AI referral network intelligence',d:'Tracks top-referring GPs and auto-triggers case updates, appreciation messages. Top 20% of referrers drive 80% of referred revenue.',m:'Highest-value, lowest-cost lead source for specialists',mc:'mc-n',cl:'p3',b:'rb-scale',bl:'Scale',tools:['HealthPro 360','Innovaccer CRM','WhatsApp API']},
+  predictive_campaigns:{t:'AI predictive demand & seasonal campaign planning',d:'Analyses HealthPro 360 history to forecast demand peaks — monsoon respiratory, winter cardiac, summer IVF — and pre-runs targeted awareness 2–3 weeks ahead.',m:'First-mover advantage · Proactive vs reactive',mc:'mc-n',cl:'p3',b:'rb-scale',bl:'Scale',tools:['ICG DCG Agency OS','Meta Advantage+','Google Performance Max']},
+};
+
+function buildFW(){
+  const p=new Set(),g=new Set(),s=new Set();
+  const bigBudget=any(5,'high','enterprise');
+  const largePractice=any(1,'chain','small_clinic');
+  if(any(2,'no_shows'))p.add('whatsapp_reminders');
+  if(any(2,'acquisition','reputation')||any(6,'grow_patients','build_brand')){p.add('gbp_reviews');p.add('chatbot_booking');}
+  if(any(2,'admin_burden')||any(6,'save_time')){p.add('ai_prescription');p.add('gst_billing');}
+  if(any(2,'retention')){p.add('followup_engine');if(!p.has('whatsapp_reminders'))p.add('whatsapp_reminders');}
+  if(any(2,'ads_roi')){p.add('gbp_reviews');g.add('aeo_visibility');s.add('cpql_attribution');}
+  if(any(6,'improve_care')||largePractice)p.add('ai_cdss');
+  if(any(6,'improve_care')&&any(1,'solo_gp','specialist'))p.add('ai_diagnostics');
+  if(any(1,'solo_gp')&&!p.has('whatsapp_reminders'))p.add('whatsapp_reminders');
+  if(largePractice&&!p.has('gst_billing'))p.add('gst_billing');
+  if(any(1,'specialist')||any(6,'build_brand')){g.add('reels_content');g.add('symptom_seo');s.add('referral_intelligence');}
+  g.add('aeo_visibility');g.add('governance_bot');
+  if(!p.has('followup_engine'))g.add('followup_engine');
+  if(largePractice||bigBudget)g.add('queue_management');
+  if(any(3,'word_mouth','practo_platform')&&!g.has('symptom_seo'))g.add('symptom_seo');
+  if(any(6,'improve_care'))g.add('drug_checker');
+  if(!p.has('lapsed_reactivation'))g.add('lapsed_reactivation');
+  s.add('analytics_dashboard');s.add('cpql_attribution');
+  if(bigBudget){s.add('segmentation');s.add('predictive_campaigns');}
+  if(any(1,'specialist')&&!s.has('referral_intelligence'))s.add('referral_intelligence');
+  if(largePractice)s.add('segmentation');
+  const dd=(set,ex)=>[...set].filter(id=>!ex.has(id)).slice(0,4);
+  const pa=dd(p,new Set());const ps=new Set(pa);
+  const ga=dd(g,ps);const gs=new Set([...ps,...ga]);
+  const sa=dd(s,gs);
+  return{p:pa,g:ga,s:sa};
+}
+
+function mkCard(id){
+  const c=C[id];if(!c)return'';
+  return`<div class="rcard ${c.cl}"><div class="rcard-top"><div class="rcard-title">${c.t}</div><span class="rbadge ${c.b}">${c.bl}</span></div><div class="rcard-desc">${c.d}</div><div class="rcard-metric ${c.mc}">${c.m}</div><div class="rcard-tools">${c.tools.map(t=>`<span class="rtool">${t}</span>`).join('')}</div></div>`;
+}
+
+// ─────────────────────────────────────────────────────────────
+// 🔴 PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL BELOW
+// ─────────────────────────────────────────────────────────────
+const SHEET_URL = "YOUR_APPS_SCRIPT_URL_HERE";
+// ─────────────────────────────────────────────────────────────
+
+function sendToSheet(payload){
+  if(!SHEET_URL||SHEET_URL==="YOUR_APPS_SCRIPT_URL_HERE")return;
+  fetch(SHEET_URL,{method:"POST",body:JSON.stringify(payload)}).catch(()=>{});
+}
+
+function showResult(){
+  document.getElementById('q6').classList.remove('active');
+  document.getElementById('prog').style.width='100%';
+  document.getElementById('prog-lbl').textContent='Framework ready';
+  document.getElementById('prog-pct').textContent='100% complete';
+  document.getElementById('result').classList.add('active');
+  const tm={solo_gp:'Solo GP',specialist:'Urban specialist',small_clinic:'Multi-doctor clinic',chain:'Multi-location chain'};
+  const pm={no_shows:'high no-shows',acquisition:'low acquisition',admin_burden:'admin overload',retention:'poor retention',ads_roi:'poor ad ROI',reputation:'weak online reputation'};
+  const gm={save_time:'recover clinical time',grow_patients:'grow volume & CPQL',build_brand:'build brand & AEO',improve_care:'improve clinical outcomes'};
+  const tl=A[1].map(t=>tm[t]||t).join(' + ')||'Healthcare practice';
+  const pl=A[2].map(x=>pm[x]||x).join(', ')||'multiple pain points';
+  const gl=A[6].map(x=>gm[x]||x).join(', ')||'multiple goals';
+  document.getElementById('r-hdr').innerHTML=`<div class="r-tag">ICG Growth Architecture · ${tl}</div><div class="r-name">Your personalised AI roadmap</div><div class="r-summ">Built for: ${tl}. Root-cause focus: ${pl}. Primary outcomes: ${gl}. Follows ICG's DCG framework — Diagnose → Cost-optimise → Grow.</div><div class="r-stats"><div class="r-stat"><div class="r-stat-num">38–58%</div><div class="r-stat-lbl">Avg CPQL reduction in 90 days</div></div><div class="r-stat"><div class="r-stat-num">150+</div><div class="r-stat-lbl">Healthcare brands on this framework</div></div><div class="r-stat"><div class="r-stat-num">5–15×</div><div class="r-stat-lbl">ROI on HealthPro 360</div></div></div>`;
+  document.getElementById('r-roadmap').innerHTML=`<div class="rm rm1"><div class="rm-phase">Week 1–2 · Diagnose</div><div class="rm-title">Quick wins</div><div class="rm-items">WhatsApp reminders · GBP · Review automation · Billing audit</div></div><div class="rm rm2"><div class="rm-phase">Month 1–2 · Cost-optimise</div><div class="rm-title">Automate & plug</div><div class="rm-items">AI bot · Follow-up engine · AEO · CPQL benchmarking</div></div><div class="rm rm3"><div class="rm-phase">Month 3+ · Grow</div><div class="rm-title">Compound & scale</div><div class="rm-items">HealthPro 360 · 4-bot lifecycle · DCG OS · Attribution</div></div>`;
+  const fw=buildFW();
+  document.getElementById('r-priority').innerHTML=fw.p.map(mkCard).join('');
+  document.getElementById('r-growth').innerHTML=fw.g.map(mkCard).join('');
+  document.getElementById('r-scale').innerHTML=fw.s.map(mkCard).join('');
+  const fc=C[fw.p[0]];
+  if(fc)document.getElementById('ask1').onclick=()=>sendPrompt(`I am a ${A[1].join(' and ')} in India. Pain points: ${A[2].join(', ')}. Goals: ${A[6].join(', ')}. Walk me step-by-step through implementing "${fc.t}" — tools, costs, setup timeline, and CPQL or revenue recovery to expect in 90 days.`);
+  document.getElementById('ask2').onclick=()=>sendPrompt(`What are ICG's CPQL benchmarks for ${A[1].map(t=>({solo_gp:'solo GPs',specialist:'urban specialists (dermatology, IVF, aesthetics)',small_clinic:'multi-doctor clinics',chain:'multi-location hospital chains'})[t]||t).join(' and ')} in India? What reduction is realistic in 90 days given pain points: ${A[2].join(', ')}?`);
+
+  // ── Send responses to Google Sheets ──
+  sendToSheet({
+    q1_practice_type   : A[1].join(", "),
+    q2_pain_points     : A[2].join(", "),
+    q3_discovery       : A[3].join(", "),
+    q4_tech_stack      : A[4].join(", "),
+    q5_budget          : A[5].join(", "),
+    q6_goals           : A[6].join(", "),
+    profile_label      : tl,
+    pain_points_label  : pl,
+    goals_label        : gl,
+    top_recommendation : fc ? fc.t : "",
+    roadmap_now        : fw.p.map(id=>C[id]?C[id].t:'').join(" | "),
+    roadmap_month      : fw.g.map(id=>C[id]?C[id].t:'').join(" | "),
+    roadmap_scale      : fw.s.map(id=>C[id]?C[id].t:'').join(" | ")
+  });
+
+  window.scrollTo(0,0);
+}
+</script>
