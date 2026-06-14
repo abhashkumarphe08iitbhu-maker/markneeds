@@ -1,4 +1,3 @@
-
 <h2 class="sr-only">ICG Ichelon Consulting Group — Mobile-responsive AI framework questionnaire for Indian doctors, clinics, and hospitals.</h2>
 
 <style>
@@ -11,32 +10,26 @@
   --r-md:var(--border-radius-md);--r-lg:var(--border-radius-lg);
 }
 #icg{padding:0 0 2rem;font-family:var(--font-sans);}
-
 .icg-header{background:var(--navy);border-radius:var(--r-lg);padding:1.25rem 1.25rem 1.1rem;margin-bottom:1.25rem;}
 .icg-wordmark{font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:5px;}
 .icg-headline{font-size:18px;font-weight:500;color:#fff;line-height:1.3;margin-bottom:5px;}
 .icg-sub{font-size:12px;color:rgba(255,255,255,0.58);line-height:1.6;}
 .icg-tag{display:inline-block;font-size:10px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.65);border-radius:3px;padding:3px 8px;margin-top:9px;}
-
 .prog-wrap{margin-bottom:1.25rem;}
 .prog-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;}
 .prog-lbl{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.06em;color:var(--tt);}
 .prog-pct{font-size:11px;color:var(--tt);}
 .prog-bar{height:2px;background:var(--bg2);border-radius:2px;}
 .prog-fill{height:100%;border-radius:2px;background:var(--navy);transition:width 0.4s ease;}
-
 .step{display:none;}.step.active{display:block;}
-
 .q-label{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.08em;color:var(--navy);margin-bottom:5px;}
 @media(prefers-color-scheme:dark){.q-label{color:#5A9ED0;}.icg-header{background:#0a2540;}}
 .q-text{font-size:16px;font-weight:500;color:var(--tp);margin-bottom:3px;line-height:1.4;}
 .q-hint{font-size:12px;color:var(--ts);margin-bottom:3px;line-height:1.5;}
 .q-multi{font-size:11px;color:var(--tt);margin-bottom:0.9rem;display:flex;align-items:center;gap:4px;}
-
 .opts{display:grid;gap:7px;margin-bottom:1.1rem;}
 .opts-2{grid-template-columns:1fr 1fr;}
 .opts-1{grid-template-columns:1fr;}
-
 @media(max-width:480px){
   .opts-2{grid-template-columns:1fr;}
   .icg-headline{font-size:16px;}
@@ -48,26 +41,21 @@
   .icg-cta-btns{flex-direction:row!important;flex-wrap:wrap;}
   .dcg-badge{flex-wrap:wrap;}
 }
-
 .opt{background:var(--bg);border:0.5px solid var(--bd);border-radius:var(--r-lg);padding:10px 12px;cursor:pointer;transition:border-color 0.15s,background 0.15s;display:flex;align-items:flex-start;gap:9px;-webkit-tap-highlight-color:transparent;}
 .opt:active{background:var(--navy-faint);}
 .opt.sel{border:1.5px solid var(--navy);background:var(--navy-light);}
 @media(prefers-color-scheme:dark){.opt.sel{background:rgba(13,46,79,0.38);border-color:#4A8BBF;}}
-
 .opt-check{width:16px;height:16px;min-width:16px;border-radius:4px;border:1.5px solid var(--bd);display:flex;align-items:center;justify-content:center;transition:all 0.15s;margin-top:1px;}
 .opt.sel .opt-check{background:var(--navy);border-color:var(--navy);}
 @media(prefers-color-scheme:dark){.opt.sel .opt-check{background:#4A8BBF;border-color:#4A8BBF;}}
 .chk-svg{width:8px;height:8px;display:none;}
 .opt.sel .chk-svg{display:block;}
-
 .opt-icon{width:28px;height:28px;min-width:28px;border-radius:7px;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:14px;}
 .opt.sel .opt-icon{background:rgba(13,46,79,0.08);}
 @media(prefers-color-scheme:dark){.opt.sel .opt-icon{background:rgba(13,46,79,0.5);}}
-
 .opt-body{flex:1;min-width:0;}
 .opt-title{font-size:12px;font-weight:500;color:var(--tp);margin-bottom:2px;line-height:1.35;}
 .opt-desc{font-size:11px;color:var(--ts);line-height:1.45;}
-
 .nav{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
 .btn-back{background:transparent;border:0.5px solid var(--bd);border-radius:var(--r-md);padding:9px 14px;font-size:13px;color:var(--ts);cursor:pointer;-webkit-tap-highlight-color:transparent;}
 .btn-back:active{background:var(--bg2);}
@@ -75,9 +63,7 @@
 .btn-next:disabled{opacity:0.28;cursor:not-allowed;}
 .btn-next:not(:disabled):active{opacity:0.8;}
 .sel-ct{font-size:11px;color:var(--tt);}
-
 .result{display:none;}.result.active{display:block;}
-
 .r-hdr{background:var(--navy);border-radius:var(--r-lg);padding:1.1rem 1.25rem;margin-bottom:1.1rem;}
 .r-tag{font-size:10px;font-weight:500;letter-spacing:0.09em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:5px;}
 .r-name{font-size:17px;font-weight:500;color:#fff;margin-bottom:7px;line-height:1.3;}
@@ -86,16 +72,13 @@
 .r-stat{background:rgba(255,255,255,0.08);border-radius:6px;padding:7px 9px;}
 .r-stat-num{font-size:14px;font-weight:500;color:#fff;}
 .r-stat-lbl{font-size:10px;color:rgba(255,255,255,0.48);margin-top:2px;line-height:1.3;}
-
 .sec-hd{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.07em;color:var(--tt);margin:1.25rem 0 8px;}
-
 .roadmap{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:0.5rem;}
 .rm{background:var(--bg);border:0.5px solid var(--bd);border-radius:var(--r-md);padding:9px 11px;}
 .rm-phase{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:3px;}
 .rm1 .rm-phase{color:var(--teal);}.rm2 .rm-phase{color:var(--gold);}.rm3 .rm-phase{color:var(--navy-mid);}
 .rm-title{font-size:11px;font-weight:500;color:var(--tp);margin-bottom:4px;}
 .rm-items{font-size:10px;color:var(--ts);line-height:1.6;}
-
 .cards{display:flex;flex-direction:column;gap:7px;}
 .rcard{background:var(--bg);border:0.5px solid var(--bd);border-radius:var(--r-lg);padding:12px 14px;}
 .rcard.p1{border-left:2.5px solid var(--teal);border-radius:0 var(--r-lg) var(--r-lg) 0;}
@@ -117,7 +100,6 @@
 .mc-t{color:var(--teal);}.mc-g{color:var(--gold);}.mc-n{color:var(--navy-mid);}
 .rcard-tools{display:flex;flex-wrap:wrap;gap:3px;margin-top:6px;}
 .rtool{font-size:10px;background:var(--bg2);border:0.5px solid var(--bd);border-radius:3px;padding:2px 6px;color:var(--tt);}
-
 .dcg-badge{display:flex;align-items:center;gap:6px;background:var(--bg2);border:0.5px solid var(--bd);border-radius:var(--r-md);padding:7px 11px;margin-top:1.1rem;}
 .dcg-pill{display:flex;gap:3px;flex-wrap:wrap;}
 .dcg-d,.dcg-c,.dcg-g{font-size:10px;font-weight:500;padding:2px 7px;border-radius:3px;}
@@ -130,11 +112,9 @@
   .dcg-g{background:rgba(201,149,42,0.18);color:#E5B660;}
 }
 .dcg-lbl{font-size:10px;color:var(--tt);}
-
 .ask-row{display:flex;gap:6px;margin-top:9px;}
 .ask-btn{flex:1;background:var(--bg2);border:0.5px solid var(--bd);border-radius:var(--r-md);padding:9px 10px;font-size:11px;color:var(--ts);cursor:pointer;text-align:left;transition:background 0.15s;line-height:1.4;-webkit-tap-highlight-color:transparent;}
 .ask-btn:active{background:var(--bg);}
-
 .icg-cta{background:var(--navy);border-radius:var(--r-lg);padding:1.1rem 1.25rem;margin-top:1.25rem;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
 .icg-cta-text{font-size:12px;color:rgba(255,255,255,0.7);flex:1;line-height:1.5;min-width:160px;}
 .icg-cta-text strong{display:block;font-size:13px;color:#fff;margin-bottom:3px;font-weight:500;}
@@ -143,7 +123,6 @@
 .cta-p:active{opacity:0.88;}
 .cta-s{background:transparent;border:0.5px solid rgba(255,255,255,0.28);border-radius:var(--r-md);padding:9px 14px;font-size:12px;color:rgba(255,255,255,0.78);cursor:pointer;white-space:nowrap;-webkit-tap-highlight-color:transparent;}
 .cta-s:active{background:rgba(255,255,255,0.08);}
-
 .restart{background:transparent;border:0.5px solid var(--bd);border-radius:var(--r-md);padding:7px 14px;font-size:12px;color:var(--ts);cursor:pointer;margin-top:8px;-webkit-tap-highlight-color:transparent;}
 .restart:active{background:var(--bg2);}
 </style>
@@ -416,6 +395,21 @@
 <script>
 const A={1:[],2:[],3:[],4:[],5:[],6:[]};
 
+// ── Google Sheets integration ──────────────────────────────────
+const SHEET_URL="https://script.google.com/macros/s/AKfycbzq3wboBLTtPijMUkJ_mk6iiqTI-jiupYJ0ui0dZWP6N9TjK20ztPd9wjnxgHrmNijlAw/exec";
+
+function sendToSheet(payload){
+  // Build a URL-encoded form body — most reliable with Apps Script + CORS
+  const body=Object.keys(payload).map(k=>encodeURIComponent(k)+"="+encodeURIComponent(payload[k])).join("&");
+  fetch(SHEET_URL,{
+    method:"POST",
+    mode:"no-cors",
+    headers:{"Content-Type":"application/x-www-form-urlencoded"},
+    body:body
+  }).catch(function(){});
+}
+// ──────────────────────────────────────────────────────────────
+
 function tog(el){
   const q=parseInt(el.dataset.q),v=el.dataset.v;
   el.classList.toggle('sel');
@@ -502,17 +496,6 @@ function mkCard(id){
   return`<div class="rcard ${c.cl}"><div class="rcard-top"><div class="rcard-title">${c.t}</div><span class="rbadge ${c.b}">${c.bl}</span></div><div class="rcard-desc">${c.d}</div><div class="rcard-metric ${c.mc}">${c.m}</div><div class="rcard-tools">${c.tools.map(t=>`<span class="rtool">${t}</span>`).join('')}</div></div>`;
 }
 
-// ─────────────────────────────────────────────────────────────
-// 🔴 PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL BELOW
-// ─────────────────────────────────────────────────────────────
-const SHEET_URL = "https://script.google.com/macros/s/AKfycbzq3wboBLTtPijMUkJ_mk6iiqTI-jiupYJ0ui0dZWP6N9TjK20ztPd9wjnxgHrmNijlAw/exec";
-// ─────────────────────────────────────────────────────────────
-
-function sendToSheet(payload){
-  if(!SHEET_URL||SHEET_URL==="https://script.google.com/macros/s/AKfycbzq3wboBLTtPijMUkJ_mk6iiqTI-jiupYJ0ui0dZWP6N9TjK20ztPd9wjnxgHrmNijlAw/exec")return;
-  fetch(SHEET_URL,{method:"POST",body:JSON.stringify(payload)}).catch(()=>{});
-}
-
 function showResult(){
   document.getElementById('q6').classList.remove('active');
   document.getElementById('prog').style.width='100%';
@@ -535,21 +518,22 @@ function showResult(){
   if(fc)document.getElementById('ask1').onclick=()=>sendPrompt(`I am a ${A[1].join(' and ')} in India. Pain points: ${A[2].join(', ')}. Goals: ${A[6].join(', ')}. Walk me step-by-step through implementing "${fc.t}" — tools, costs, setup timeline, and CPQL or revenue recovery to expect in 90 days.`);
   document.getElementById('ask2').onclick=()=>sendPrompt(`What are ICG's CPQL benchmarks for ${A[1].map(t=>({solo_gp:'solo GPs',specialist:'urban specialists (dermatology, IVF, aesthetics)',small_clinic:'multi-doctor clinics',chain:'multi-location hospital chains'})[t]||t).join(' and ')} in India? What reduction is realistic in 90 days given pain points: ${A[2].join(', ')}?`);
 
-  // ── Send responses to Google Sheets ──
+  // ── Send to Google Sheets ──
+  const fw2=buildFW();
   sendToSheet({
-    q1_practice_type   : A[1].join(", "),
-    q2_pain_points     : A[2].join(", "),
-    q3_discovery       : A[3].join(", "),
-    q4_tech_stack      : A[4].join(", "),
-    q5_budget          : A[5].join(", "),
-    q6_goals           : A[6].join(", "),
-    profile_label      : tl,
-    pain_points_label  : pl,
-    goals_label        : gl,
-    top_recommendation : fc ? fc.t : "",
-    roadmap_now        : fw.p.map(id=>C[id]?C[id].t:'').join(" | "),
-    roadmap_month      : fw.g.map(id=>C[id]?C[id].t:'').join(" | "),
-    roadmap_scale      : fw.s.map(id=>C[id]?C[id].t:'').join(" | ")
+    q1_practice_type  : A[1].join(", "),
+    q2_pain_points    : A[2].join(", "),
+    q3_discovery      : A[3].join(", "),
+    q4_tech_stack     : A[4].join(", "),
+    q5_budget         : A[5].join(", "),
+    q6_goals          : A[6].join(", "),
+    profile_label     : tl,
+    pain_points_label : pl,
+    goals_label       : gl,
+    top_recommendation: fc ? fc.t : "",
+    roadmap_now       : fw2.p.map(id=>C[id]?C[id].t:'').join(" | "),
+    roadmap_month     : fw2.g.map(id=>C[id]?C[id].t:'').join(" | "),
+    roadmap_scale     : fw2.s.map(id=>C[id]?C[id].t:'').join(" | ")
   });
 
   window.scrollTo(0,0);
