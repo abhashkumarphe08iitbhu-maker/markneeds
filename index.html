@@ -399,16 +399,50 @@ const A={1:[],2:[],3:[],4:[],5:[],6:[]};
 const SHEET_URL="https://script.google.com/macros/s/AKfycbzq3wboBLTtPijMUkJ_mk6iiqTI-jiupYJ0ui0dZWP6N9TjK20ztPd9wjnxgHrmNijlAw/exec";
 
 function sendToSheet(payload){
-  // Build a URL-encoded form body — most reliable with Apps Script + CORS
-  const body=Object.keys(payload).map(k=>encodeURIComponent(k)+"="+encodeURIComponent(payload[k])).join("&");
-  fetch(SHEET_URL,{
-    method:"POST",
-    mode:"no-cors",
-    headers:{"Content-Type":"application/x-www-form-urlencoded"},
-    body:body
-  }).catch(function(){});
+  // Use hidden iframe + form submit — bypasses CORS completely with Apps Script
+  const iframe=document.createElement('iframe');
+  iframe.name='icg_submit_'+Date.now();
+  iframe.style.display='none';
+  document.body.appendChild(iframe);
+
+  const form=document.createElement('form');
+  form.method='POST';
+  form.action=SHEET_URL;
+  form.target=iframe.name;
+
+  const fields={
+    q1:payload.q1_practice_type||'',
+    q2:payload.q2_pain_points||'',
+    q3:payload.q3_discovery||'',
+    q4:payload.q4_tech_stack||'',
+    q5:payload.q5_budget||'',
+    q6:payload.q6_goals||'',
+    profile:payload.profile_label||'',
+    pains:payload.pain_points_label||'',
+    goals:payload.goals_label||'',
+    top_rec:payload.top_recommendation||'',
+    now:payload.roadmap_now||'',
+    month:payload.roadmap_month||'',
+    scale:payload.roadmap_scale||''
+  };
+
+  Object.keys(fields).forEach(function(k){
+    const input=document.createElement('input');
+    input.type='hidden';
+    input.name=k;
+    input.value=fields[k];
+    form.appendChild(input);
+  });
+
+  document.body.appendChild(form);
+  form.submit();
+
+  // Clean up after submission
+  setTimeout(function(){
+    document.body.removeChild(form);
+    document.body.removeChild(iframe);
+  },5000);
 }
-// ──────────────────────────────────────────────────────────────
 
 function tog(el){
   const q=parseInt(el.dataset.q),v=el.dataset.v;
