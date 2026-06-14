@@ -505,11 +505,11 @@ function mkCard(id){
 // ─────────────────────────────────────────────────────────────
 // 🔴 PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL BELOW
 // ─────────────────────────────────────────────────────────────
-const SHEET_URL = "https://script.google.com/macros/s/AKfycbwROYGKIC26G6FrxeHpcTTDlO7sCVCwwK2kvjQAl9DJ9Pl1-HijRMzFI9BW4b9onOkM_w/exec";
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbzME8Y9MG_sUyjA2P32Fr_xfy7xOZSC1kc3FidpxOy0y4oO9S9Ucs1rQM3jHyKQvGsrZg/exec";
 // ─────────────────────────────────────────────────────────────
 
 function sendToSheet(payload){
-  if(!SHEET_URL||SHEET_URL==="https://script.google.com/macros/s/AKfycbwROYGKIC26G6FrxeHpcTTDlO7sCVCwwK2kvjQAl9DJ9Pl1-HijRMzFI9BW4b9onOkM_w/exec")return;
+  if(!SHEET_URL||SHEET_URL==="https://script.google.com/macros/s/AKfycbzME8Y9MG_sUyjA2P32Fr_xfy7xOZSC1kc3FidpxOy0y4oO9S9Ucs1rQM3jHyKQvGsrZg/exec")return;
   fetch(SHEET_URL,{method:"POST",body:JSON.stringify(payload)}).catch(()=>{});
 }
 
